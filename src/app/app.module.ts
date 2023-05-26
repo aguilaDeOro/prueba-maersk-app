@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductoComponent } from './components/producto/producto.component';
+import { ProductoService } from './services/producto.service';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -12,9 +15,10 @@ import { ProductoComponent } from './components/producto/producto.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
