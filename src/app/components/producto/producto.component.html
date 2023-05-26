@@ -1,1 +1,9 @@
-<p>producto works!</p>
+<ng-container *ngIf="producto">
+    <h2>{{ producto.title }}</h2>
+    <p> S/ {{ producto.price }}</p>
+    <img [src]="producto.images[0]" alt=""/>
+</ng-container>
+
+<ng-container *ngIf="!producto">
+    no hay producto
+</ng-container>
