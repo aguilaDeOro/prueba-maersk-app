@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from './models/producto.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { requiredValidator } from './validators/required.validator';
-import { requiredNumberValidator } from './validators/requiredNumber.validator'; 
+import { requiredNumberValidator } from './validators/requiredNumber.validator';
 import { messageValidaEmpleados } from './validators/constantes.validaciones';
 import { ProductoService } from './services/producto.service';
 
@@ -11,24 +11,28 @@ import { ProductoService } from './services/producto.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'Formulario - Validaciones';
 
-  frmEmpleado!: FormGroup;  
+  frmEmpleado!: FormGroup;
   productos: Producto[] = [];
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private productService: ProductoService) { }
 
   ngOnInit(): void {
 
     this.frmEmpleado = this.formBuilder.group({
-      nombres: ['',[requiredValidator(messageValidaEmpleados.requiredNombres)]],
-      apellidos: ['',[requiredValidator(messageValidaEmpleados.requiredApellidos)]],   
-      numeroHijos: ['',[requiredNumberValidator(messageValidaEmpleados.requiredNumeroHijos)]],   
-      sede: ['',[requiredValidator(messageValidaEmpleados.requiredSede)]],       
-      experiencia: [''],               
+      nombres: ['', [requiredValidator(messageValidaEmpleados.requiredNombres)]],
+      apellidos: ['', [requiredValidator(messageValidaEmpleados.requiredApellidos)]],
+      numeroHijos: ['', [requiredNumberValidator(messageValidaEmpleados.requiredNumeroHijos)]],
+      sede: ['', [requiredValidator(messageValidaEmpleados.requiredSede)]],
+      experiencia: [''],
     });
-    
+
+    this.productService.getProducts()
+      .subscribe((data) => {
+        this.productos = data;
+      });
   }
 
   send(): any {
